@@ -1,0 +1,8 @@
+add to app/Http/routes.php
+
+Route::get('', 'defaultController@_index');
+Route::get('/', 'defaultController@_index');
+Route::get('default', 'defaultController@_default');
+Route::get('navbar', 'defaultController@_navbar');
+Route::get('sidebar', 'defaultController@_sidebar');
+Route::get('footer', 'defaultController@_footer');

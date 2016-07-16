@@ -1,0 +1,4 @@
+add to .env
+
+ENV_IS_SEEN=false
+APP_PORT=8000
