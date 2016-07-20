@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="bgts" ng-controller="IndexController as indexCtrl" lang="en">
 <head>
+	<base href="/">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 	<meta name="description" content="{{$Data['app_description']}}" />
