@@ -1,4 +1,2 @@
-add to .env
-
-ENV_IS_SEEN=false
+#Add the line below to your .ENV file in the root folder, this is used for reference.
 APP_PORT=8000
