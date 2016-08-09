@@ -9,6 +9,26 @@
 [http://bgtsworks.blogspot.com/2016/07/make-laravel-5-modular-part-1.html] (http://bgtsworks.blogspot.com/2016/07/make-laravel-5-modular-part-1.html)
 
 
+## First Steps
+1. Add the line below to your .ENV file in the root folder, this is used for reference.
+
+> APP_PORT=8000 *or any port you intend to use*
+
+2. Add these lines in your app\Http\routes.php replacing the '' and '\' entries.
+
+> Route::get('', 'defaultController@_index');
+
+> Route::get('/', 'defaultController@_index');
+
+> Route::get('default', 'defaultController@_default');
+
+> Route::get('navbar', 'defaultController@_navbar');
+
+> Route::get('sidebar', 'defaultController@_sidebar');
+
+> Route::get('footer', 'defaultController@_footer');
+
+
 ## Application Data
 _config\ApplicationData.php_
 > These values are used to fill up the HEAD tag of your web page/site. Modify the properties to your liking. Facebook uses OG property for crawling that is why I included them in the scanner. For more info about facebook's open graph, you may visit their [Open Graph Reference](https://developers.facebook.com/docs/reference/opengraph/) :)
