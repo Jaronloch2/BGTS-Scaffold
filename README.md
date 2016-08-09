@@ -10,11 +10,13 @@
 
 
 ## First Steps
-1. Add the line below to your .ENV file in the root folder, this is used for reference.
+1. Paste the folders in your Laravel's root directory.
+
+2. Add the line below to your .ENV file in the root folder, this is used for reference.
 
 > APP_PORT=8000 *or any port you intend to use*
 
-2. Add these lines in your app\Http\routes.php replacing the '' and '\' entries.
+3. Add these lines in your app\Http\routes.php replacing the '' and '\' entries.
 
 > Route::get('', 'defaultController@_index');
 
