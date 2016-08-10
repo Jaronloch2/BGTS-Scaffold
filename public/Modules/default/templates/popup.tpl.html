@@ -1,12 +1,10 @@
 <div role="dialog" id="PopupModal">
 	<div class="modal-dialog text-center">
 		<div class="modal-header h1">{{popupTitle}}</div>
-		<div class="modal-body">
-			{{popupMsg}}
+		<div ng-bind-html="popupMsg | unsafe" class="modal-body"></div>
 			<br/>
-		</div>
 		<div class="modal-footer">
-			<button class="btn btn-danger" ng-click="ok()">OK</button>
+			<button class="btn btn-danger" ng-click="ok()" autofocus=true>OK</button>
 			<button class="btn btn-danger" ng-click="cancel()">Cancel</button>
 		</div>
 	</div>
