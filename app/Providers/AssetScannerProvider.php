@@ -6,14 +6,14 @@ use Config;
 class AssetScannerProvider{
 	public function scan($moduleName = "default"){
 		$APP				= Config::get('ApplicationData.APP');
-		$public				= $this->defineassets();
-		$defaultModule		= $public['module'][$moduleName];
+		$public				= $this->defineModules();
+		$defaultModule		= $public['modules'][$moduleName];
 		$defaultModContents	= $this->getModContents($defaultModule);
 		$APP				= $this->dependencyMgr($APP,$defaultModContents, $moduleName);
-		$APP				= $this->injectCustomassets($public['assets'], $APP, $moduleName);
+		$APP				= $this->injectCustomModules($public['modules'], $APP, $moduleName);
 		return $APP;
 	}
-	public function injectCustomassets($moduledir, $APP, $modulename){
+	public function injectCustomModules($moduledir, $APP, $modulename){
 		foreach($moduledir as $key=>$val){
 			$moddir		= $val;
 			$scanned	= scandir($val);
@@ -24,7 +24,7 @@ class AssetScannerProvider{
 						if($js!='.' && $js!='..'){
 							if(is_file($jsdir. DIRECTORY_SEPARATOR .$js)){
 								$filepath	= $APP['Data']['app_url']."/assets/$key/js/$js";
-								$APP['Allassets']['js'][]	= "<script type='text/javascript' src='$filepath'></script>";
+								$APP['AllModules']['js'][]	= "<script type='text/javascript' src='$filepath'></script>";
 							}
 						}
 					}
@@ -35,7 +35,7 @@ class AssetScannerProvider{
 						if($css!='.' && $css!='..'){
 							if(is_file($cssdir. DIRECTORY_SEPARATOR .$css)){
 								$filepath	= $APP['Data']['app_url']."/assets/$key/styles/$css";
-								$APP['Allassets']['styles'][]	= "<link rel='stylesheet' href='$filepath'>";
+								$APP['AllModules']['styles'][]	= "<link rel='stylesheet' href='$filepath'>";
 							}
 						}
 					}
@@ -44,13 +44,13 @@ class AssetScannerProvider{
 		}
 		return $APP;
 	}
-	public function defineassets(){
-		$public	= array('assets'=>array());
+	public function defineModules(){
+		$public	= array('modules'=>array());
 		$moduledir	= (__DIR__ . '../../../public/assets/');
-		$assets	= scandir($moduledir);
-		foreach($assets as $key=>$value){
+		$modules	= scandir($moduledir);
+		foreach($modules as $key=>$value){
 			if($value != "." && $value != ".."){
-				$public['assets'][$value]	= realpath($moduledir.DIRECTORY_SEPARATOR.$value);
+				$public['modules'][$value]	= realpath($moduledir.DIRECTORY_SEPARATOR.$value);
 			}
 		}
 		return $public;
