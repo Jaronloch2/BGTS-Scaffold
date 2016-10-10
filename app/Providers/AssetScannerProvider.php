@@ -7,7 +7,7 @@ class AssetScannerProvider{
 	public function scan($moduleName = "default"){
 		$APP				= Config::get('ApplicationData.APP');
 		$public				= $this->defineassets();
-		$defaultModule		= $public['assets'][$moduleName];
+		$defaultModule		= $public['module'][$moduleName];
 		$defaultModContents	= $this->getModContents($defaultModule);
 		$APP				= $this->dependencyMgr($APP,$defaultModContents, $moduleName);
 		$APP				= $this->injectCustomassets($public['assets'], $APP, $moduleName);
