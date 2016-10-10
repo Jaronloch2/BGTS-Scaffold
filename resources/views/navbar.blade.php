@@ -7,7 +7,7 @@
 	  <span class="icon-bar"></span>
 	  <span class="icon-bar"></span>
 	</button>
-	<a class="navbar-brand" ui-sref="root"><img ng-src="/Modules/default/images/app_icon.png" height="30px"></a>
+	<a class="navbar-brand" ui-sref="root"><img ng-src="/assets/default/images/app_icon.png" height="30px"></a>
   </div>
   <div id="navbar" class="navbar-collapse collapse">
 	<ul class="nav navbar-nav navbar-left">
