@@ -6,14 +6,14 @@ use Config;
 class AssetScannerProvider{
 	public function scan($moduleName = "default"){
 		$APP				= Config::get('ApplicationData.APP');
-		$public				= $this->defineModules();
-		$defaultModule		= $public['modules'][$moduleName];
+		$public				= $this->defineassets();
+		$defaultModule		= $public['assets'][$moduleName];
 		$defaultModContents	= $this->getModContents($defaultModule);
 		$APP				= $this->dependencyMgr($APP,$defaultModContents, $moduleName);
-		$APP				= $this->injectCustomModules($public['modules'], $APP, $moduleName);
+		$APP				= $this->injectCustomassets($public['assets'], $APP, $moduleName);
 		return $APP;
 	}
-	public function injectCustomModules($moduledir, $APP, $modulename){
+	public function injectCustomassets($moduledir, $APP, $modulename){
 		foreach($moduledir as $key=>$val){
 			$moddir		= $val;
 			$scanned	= scandir($val);
@@ -23,8 +23,8 @@ class AssetScannerProvider{
 					foreach(scandir($jsdir) as $js){
 						if($js!='.' && $js!='..'){
 							if(is_file($jsdir. DIRECTORY_SEPARATOR .$js)){
-								$filepath	= $APP['Data']['app_url']."/Modules/$key/js/$js";
-								$APP['AllModules']['js'][]	= "<script type='text/javascript' src='$filepath'></script>";
+								$filepath	= $APP['Data']['app_url']."/assets/$key/js/$js";
+								$APP['Allassets']['js'][]	= "<script type='text/javascript' src='$filepath'></script>";
 							}
 						}
 					}
@@ -34,8 +34,8 @@ class AssetScannerProvider{
 					foreach(scandir($cssdir) as $css){
 						if($css!='.' && $css!='..'){
 							if(is_file($cssdir. DIRECTORY_SEPARATOR .$css)){
-								$filepath	= $APP['Data']['app_url']."/Modules/$key/styles/$css";
-								$APP['AllModules']['styles'][]	= "<link rel='stylesheet' href='$filepath'>";
+								$filepath	= $APP['Data']['app_url']."/assets/$key/styles/$css";
+								$APP['Allassets']['styles'][]	= "<link rel='stylesheet' href='$filepath'>";
 							}
 						}
 					}
@@ -44,13 +44,13 @@ class AssetScannerProvider{
 		}
 		return $APP;
 	}
-	public function defineModules(){
-		$public	= array('modules'=>array());
-		$moduledir	= (__DIR__ . '../../../public/Modules/');
-		$modules	= scandir($moduledir);
-		foreach($modules as $key=>$value){
+	public function defineassets(){
+		$public	= array('assets'=>array());
+		$moduledir	= (__DIR__ . '../../../public/assets/');
+		$assets	= scandir($moduledir);
+		foreach($assets as $key=>$value){
 			if($value != "." && $value != ".."){
-				$public['modules'][$value]	= realpath($moduledir.DIRECTORY_SEPARATOR.$value);
+				$public['assets'][$value]	= realpath($moduledir.DIRECTORY_SEPARATOR.$value);
 			}
 		}
 		return $public;
@@ -68,7 +68,7 @@ class AssetScannerProvider{
 		return $results;
 	}
 	public function dependencyMgr($APP, $MODDIR, $MODNAME){	
-		$moduledir	= __DIR__ . '/../../public/Modules';
+		$moduledir	= __DIR__ . '/../../public/assets';
 		foreach($MODDIR as $d){
 			$ext	= explode('.',$d);
 			$ext	= $ext[count($ext)-1];
@@ -76,13 +76,13 @@ class AssetScannerProvider{
 				if(!in_array($d,$APP['Dependencies']['js'])){
 					$filepath	= "$moduledir/$MODNAME/dependencies/js/$d";
 					if(is_file($filepath)){
-						$filepath	= $APP['Data']['app_url']."/Modules/$MODNAME/dependencies/js/$d";
+						$filepath	= $APP['Data']['app_url']."/assets/$MODNAME/dependencies/js/$d";
 						$APP['Dependencies']['js'][]	= "<script type='text/javascript' src='$filepath'></script>";
 					}
 				}else{
 					$index	= array_search($d, $APP['Dependencies']['js'], TRUE);
 					$filepath	= "$moduledir/$MODNAME/dependencies/js/$d";					if(is_file($filepath)){
-						$filepath	= $APP['Data']['app_url']."/Modules/$MODNAME/dependencies/js/$d";
+						$filepath	= $APP['Data']['app_url']."/assets/$MODNAME/dependencies/js/$d";
 						$APP['Dependencies']['js'][$index]	= "<script type='text/javascript' src='$filepath'></script>";
 					}
 				}
@@ -91,14 +91,14 @@ class AssetScannerProvider{
 				if(!in_array($d,$APP['Dependencies']['styles'])){
 					$filepath	= "$moduledir/$MODNAME/dependencies/styles/$d";
 					if(is_file($filepath)){
-						$filepath	= $APP['Data']['app_url']."/Modules/$MODNAME/dependencies/styles/$d";
+						$filepath	= $APP['Data']['app_url']."/assets/$MODNAME/dependencies/styles/$d";
 						$APP['Dependencies']['styles'][]	= "<link rel='stylesheet' href='$filepath'>";
 					}
 				}else{
 					$index	= array_search($d, $APP['Dependencies']['styles'], TRUE);
 					$filepath	= "$moduledir/$MODNAME/dependencies/styles/$d";
 					if(is_file($filepath)){
-						$filepath	= $APP['Data']['app_url']."/Modules/$MODNAME/dependencies/styles/$d";
+						$filepath	= $APP['Data']['app_url']."/assets/$MODNAME/dependencies/styles/$d";
 						$APP['Dependencies']['styles'][$index]	= "<link rel='stylesheet' href='$filepath'>";
 					}
 				}
